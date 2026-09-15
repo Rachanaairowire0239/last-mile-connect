@@ -7,4 +7,4 @@
 - [x] Build payment review
 - [x] Build simulated booking tracking
 - [x] Build completion, downloads, and feedback
-- [ ] Verify desktop and mobile journey
+- [x] Verify desktop and mobile journey
