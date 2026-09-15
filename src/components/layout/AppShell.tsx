@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
 
-export function AppShell({ crumbs, children }: { crumbs: string[]; children: ReactNode }) {
 export function AppShell({
   crumbs,
   children,
