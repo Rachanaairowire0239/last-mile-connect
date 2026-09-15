@@ -10,8 +10,8 @@ export function AppShell({
 }: {
   crumbs: string[];
   children: ReactNode;
-  activeService?: string;
-  onServiceSelect?: (service: string) => void;
+  activeService?: string | undefined;
+  onServiceSelect?: ((service: string) => void) | undefined;
 }) {
   return (
     <div className="min-h-screen bg-background">
