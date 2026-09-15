@@ -10,7 +10,7 @@ const items = [
   { title: "ISP Gateway", to: "/isp-gateway", icon: Network },
 ] as const;
 
-export function SideNav({ activeService, onServiceSelect }: { activeService?: string; onServiceSelect?: (service: string) => void }) {
+export function SideNav({ activeService, onServiceSelect }: { activeService?: string | undefined; onServiceSelect?: ((service: string) => void) | undefined }) {
   return (
     <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar p-3 text-sidebar-foreground lg:flex">
       <nav className="flex flex-col gap-1">
