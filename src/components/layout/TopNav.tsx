@@ -1,5 +1,6 @@
 import { Bell, Command, Search } from "lucide-react";
 import { Fragment } from "react";
+import { Button } from "@/components/ui/button";
 
 export function TopNav({ crumbs }: { crumbs: string[] }) {
   return (
@@ -8,7 +9,7 @@ export function TopNav({ crumbs }: { crumbs: string[] }) {
         <div className="grid h-8 w-8 place-items-center rounded-md bg-primary text-[10px] font-bold text-primary-foreground">
           LM
         </div>
-        <span className="text-sm font-semibold tracking-tight">Last Mile</span>
+        <span className="text-sm font-semibold">Last Mile <span className="text-primary">Connect</span></span>
       </div>
 
       <nav aria-label="Breadcrumb" className="ml-4 hidden items-center gap-2 text-xs lg:flex">
@@ -45,13 +46,15 @@ export function TopNav({ crumbs }: { crumbs: string[] }) {
           All Systems Operational
         </span>
 
-        <button
+        <Button
           aria-label="Notifications"
-          className="relative grid h-9 w-9 place-items-center rounded-md text-muted-foreground hover:bg-surface hover:text-foreground"
+          variant="ghost"
+          size="icon"
+          className="relative text-muted-foreground"
         >
           <Bell className="h-4 w-4" />
           <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-accent" />
-        </button>
+        </Button>
 
         <div className="flex items-center gap-2 pl-1">
           <div className="hidden text-right sm:block">
