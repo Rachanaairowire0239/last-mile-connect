@@ -101,6 +101,11 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     letter-spacing: 0;
+    min-width: 320px;
+  }
+
+  button, a, input, textarea, select {
+    letter-spacing: 0;
   }
 }
 
