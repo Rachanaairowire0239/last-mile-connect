@@ -1,27 +1,28 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { Boxes, ClipboardCheck, HardHat, LifeBuoy, Network, Radar } from "lucide-react";
+import { Boxes, ClipboardCheck, HardHat, LifeBuoy, Network, RadioTower, Radar, WandSparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const items = [
   { title: "Site Audit", to: "/site-audit", icon: ClipboardCheck },
   { title: "Survey", to: "/survey", icon: Radar },
   { title: "Field Engineer Support", to: "/", icon: HardHat },
-  { title: "Products & Inventories", to: "/products", icon: Boxes },
+  { title: "Products & Inventory", to: "/products", icon: Boxes },
+  { title: "Passive Services", to: "/passive", icon: RadioTower },
   { title: "ISP Gateway", to: "/isp-gateway", icon: Network },
 ] as const;
 
-export function SideNav() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
+export function SideNav({ activeService, onServiceSelect }: { activeService?: string; onServiceSelect?: (service: string) => void }) {
   return (
     <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar p-3 text-sidebar-foreground lg:flex">
       <nav className="flex flex-col gap-1">
         {items.map((item) => {
-          const active = pathname === item.to;
+          const active = activeService === item.title;
           return (
-            <Link
+            <Button
               key={item.title}
-              to={item.to}
-              className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-xs font-medium transition-colors ${
+              type="button"
+              variant="ghost"
+              onClick={() => onServiceSelect?.(item.title)}
+              className={`h-10 w-full justify-start px-3 text-xs ${
                 active
                   ? "bg-primary/15 text-foreground shadow-[inset_2px_0_0_0_var(--color-primary)]"
                   : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
@@ -29,20 +30,27 @@ export function SideNav() {
             >
               <item.icon className={`h-4 w-4 ${active ? "text-primary" : ""}`} />
               {item.title}
-            </Link>
+            </Button>
           );
         })}
       </nav>
 
-      <div className="mt-auto rounded-lg border border-sidebar-border bg-sidebar-accent p-3">
+      <div className="mt-4 rounded-md border border-primary/20 bg-primary/5 p-3">
+        <WandSparkles className="h-4 w-4 text-primary" />
+        <p className="mt-2 text-xs font-semibold">Need a custom solution?</p>
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">Build a tailored multi-site scope.</p>
+        <Button variant="outline" size="sm" className="mt-3 w-full text-[11px]">Request solution</Button>
+      </div>
+
+      <div className="mt-auto rounded-md border border-sidebar-border bg-sidebar-accent p-3">
         <LifeBuoy className="h-4 w-4 text-primary" />
         <p className="mt-2 text-xs font-semibold">Need help?</p>
         <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
           Contact your technical coordinator for any assistance.
         </p>
-        <button className="mt-3 w-full rounded-md bg-primary px-3 py-2 text-[11px] font-semibold text-primary-foreground hover:bg-primary/90">
+        <Button size="sm" className="mt-3 w-full text-[11px]">
           Contact Coordinator
-        </button>
+        </Button>
       </div>
     </aside>
   );
