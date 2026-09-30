@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const items = [
   { title: "Site Audit", to: "/site-audit", icon: ClipboardCheck },
   { title: "Survey", to: "/survey", icon: Radar },
-  { title: "Field Engineer Support", to: "/", icon: HardHat },
+  { title: "Field Engineer Support", service: "Field Engineer", to: "/", icon: HardHat },
   { title: "Products & Inventory", to: "/products", icon: Boxes },
   { title: "Passive Services", to: "/passive", icon: RadioTower },
   { title: "ISP Gateway", to: "/isp-gateway", icon: Network },
@@ -21,7 +21,7 @@ export function SideNav({ activeService, onServiceSelect }: { activeService?: st
               key={item.title}
               type="button"
               variant="ghost"
-              onClick={() => onServiceSelect?.(item.title)}
+              onClick={() => onServiceSelect?.(item.service ?? item.title)}
               className={`h-10 w-full justify-start px-3 text-xs ${
                 active
                   ? "bg-primary/15 text-foreground shadow-[inset_2px_0_0_0_var(--color-primary)]"
