@@ -5,7 +5,7 @@ export function OrderConfirmationModal({ ticket, onClose }) {
   const isAssigned = ticket.engineer && ticket.engineer !== "Unassigned";
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-overlay/60 p-4">
       <section className="w-full max-w-xl rounded-md border border-border bg-card p-8 text-center shadow-2xl">
         <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-success/15 text-success">
           <CheckCircle2 className="h-9 w-9" />

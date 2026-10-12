@@ -36,6 +36,7 @@ const startingMessages = {
     { sender: "Amit Deshpande", role: "Customer", text: "The site POC is available. Billing counters are still offline.", time: "10:20 AM" },
     { sender: "You", role: "Operations", text: "Please contact the site POC before arrival and share the diagnosis here.", time: "10:22 AM" },
     ],
+    
     internal: [
     { sender: "Nisha Shah", role: "NOC", text: "Last-mile circuit is reachable. Suspecting a local power or CPE issue.", time: "10:12 AM" },
     { sender: "You", role: "Service desk", text: "Keep a replacement router ready. Verify the RCA before sharing it.", time: "10:16 AM" },

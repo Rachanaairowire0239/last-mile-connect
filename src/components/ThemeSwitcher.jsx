@@ -1,58 +1,62 @@
-import { jsx, jsxs } from "react/jsx-runtime";
-import { useEffect, useState } from "react";
-import { Palette } from "lucide-react";
+import { useSyncExternalStore } from "react";
+import { Monitor, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const THEMES = [
-  { id: "dark", name: "Midnight Navy" },
-  { id: "light", name: "Daylight" },
-  { id: "ocean", name: "Deep Ocean" },
-  { id: "amber", name: "Amber Ops" }
-];
-function apply(id) {
-  const root = document.documentElement;
-  THEMES.forEach((t) => root.classList.remove(`theme-${t.id}`));
-  root.classList.add(`theme-${id}`);
-  try {
-    localStorage.setItem("lmc-theme", id);
-  } catch {
-  }
-}
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  DEFAULT_THEME,
+  THEME_OPTIONS,
+  getThemeSnapshot,
+  setTheme,
+  subscribeTheme,
+} from "@/lib/themes";
+
 function ThemeSwitcher() {
-  const [theme, setTheme] = useState("dark");
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    let saved = null;
-    try {
-      saved = localStorage.getItem("lmc-theme");
-    } catch {
-    }
-    const id = THEMES.find((t) => t.id === saved)?.id ?? "dark";
-    setTheme(id);
-    apply(id);
-  }, []);
-  const pick = (id) => {
-    setTheme(id);
-    apply(id);
-    setOpen(false);
-  };
-  return /* @__PURE__ */ jsxs("div", { className: "relative", children: [
-    /* @__PURE__ */ jsx(Button, { "aria-label": "Change theme", variant: "ghost", size: "icon", className: "text-muted-foreground", onClick: () => setOpen(!open), children: /* @__PURE__ */ jsx(Palette, { className: "h-4 w-4" }) }),
-    open && /* @__PURE__ */ jsx("div", { className: "absolute right-0 top-11 z-50 w-44 rounded-md border border-border bg-popover p-1 shadow-lg", children: THEMES.map((t) => /* @__PURE__ */ jsxs(
-      "button",
-      {
-        type: "button",
-        onClick: () => pick(t.id),
-        className: `flex w-full items-center justify-between rounded px-2 py-2 text-left text-xs hover:bg-surface ${theme === t.id ? "text-primary" : "text-popover-foreground"}`,
-        children: [
-          t.name,
-          theme === t.id && /* @__PURE__ */ jsx("span", { className: "h-1.5 w-1.5 rounded-full bg-primary" })
-        ]
-      },
-      t.id
-    )) })
-  ] });
+  const theme = useSyncExternalStore(subscribeTheme, getThemeSnapshot, () => DEFAULT_THEME);
+  const selected = THEME_OPTIONS.find((option) => option.id === theme);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          aria-label={`Change theme: ${selected.name}`}
+          title={`Theme: ${selected.name}`}
+          variant="ghost"
+          size="icon"
+          className="shrink-0 text-nav-foreground"
+        >
+          <Palette className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56 max-w-[calc(100vw-2rem)]">
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+          {THEME_OPTIONS.map((option) => (
+            <DropdownMenuRadioItem key={option.id} value={option.id} className="min-h-11 gap-3">
+              {option.colors ? (
+                <span
+                  aria-hidden="true"
+                  className="flex h-5 w-7 shrink-0 overflow-hidden rounded-sm border"
+                  style={{ backgroundColor: option.colors.card, borderColor: option.colors.input }}
+                >
+                  <span className="w-1/2" style={{ backgroundColor: option.colors.primary }} />
+                  <span className="w-1/2" style={{ backgroundColor: option.colors.background }} />
+                </span>
+              ) : (
+                <Monitor aria-hidden="true" className="h-5 w-7 shrink-0" />
+              )}
+              {option.name}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
-export {
-  THEMES,
-  ThemeSwitcher
-};
+
+export { ThemeSwitcher };

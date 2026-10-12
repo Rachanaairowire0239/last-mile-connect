@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { THEME_INIT_SCRIPT, initializeTheme, subscribeTheme } from "../lib/themes";
 function NotFoundComponent() {
   return /* @__PURE__ */ jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxs("div", { className: "max-w-md text-center", children: [
     /* @__PURE__ */ jsx("h1", { className: "text-7xl font-bold text-foreground", children: "404" }),
@@ -84,8 +85,15 @@ const Route = createRootRouteWithContext()({
   errorComponent: ErrorComponent
 });
 function RootShell({ children }) {
-  return /* @__PURE__ */ jsxs("html", { lang: "en", children: [
-    /* @__PURE__ */ jsx("head", { children: /* @__PURE__ */ jsx(HeadContent, {}) }),
+  useEffect(() => {
+    initializeTheme();
+    return subscribeTheme(() => {});
+  }, []);
+  return /* @__PURE__ */ jsxs("html", { lang: "en", suppressHydrationWarning: true, children: [
+    /* @__PURE__ */ jsxs("head", { children: [
+      /* @__PURE__ */ jsx("script", { dangerouslySetInnerHTML: { __html: THEME_INIT_SCRIPT } }),
+      /* @__PURE__ */ jsx(HeadContent, {})
+    ] }),
     /* @__PURE__ */ jsxs("body", { children: [
       children,
       /* @__PURE__ */ jsx(Scripts, {})

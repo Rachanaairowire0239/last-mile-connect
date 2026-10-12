@@ -24,7 +24,7 @@ function TopNav({ crumbs, onBookingsSelect, role, onRoleChange, notifications = 
       )
     ] }, c)) }),
     /* @__PURE__ */ jsxs("div", { className: "ml-auto flex items-center gap-3", children: [
-      /* @__PURE__ */ jsxs("div", { className: "relative hidden md:block", children: [
+      /* @__PURE__ */ jsxs("div", { className: "relative hidden xl:block", children: [
         /* @__PURE__ */ jsx(Search, { className: "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" }),
         /* @__PURE__ */ jsx(
           "input",
@@ -40,7 +40,7 @@ function TopNav({ crumbs, onBookingsSelect, role, onRoleChange, notifications = 
           "K"
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("span", { className: "hidden items-center gap-2 rounded-full border border-success/40 bg-success/10 px-3 py-1 text-[11px] font-medium text-success sm:flex", children: [
+      /* @__PURE__ */ jsxs("span", { className: "hidden items-center gap-2 rounded-full border border-success/40 bg-success/10 px-3 py-1 text-[11px] font-medium text-success lg:flex", children: [
         /* @__PURE__ */ jsx("span", { className: "h-1.5 w-1.5 rounded-full bg-success" }),
         "All Systems Operational"
       ] }),

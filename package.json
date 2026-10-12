@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "test:themes": "node --test src/lib/themes.test.js",
     "format": "prettier --write ."
   },
   "overrides": {

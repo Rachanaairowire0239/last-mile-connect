@@ -50,3 +50,30 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Application Themes
+
+The header's Appearance menu offers Light, Dark, Corporate Blue, Modern Gray,
+Midnight, Azure, and System Default. Changes apply immediately and are saved in
+local storage under `lmc-theme`. System Default follows live OS color-scheme
+changes. Preferences also synchronize across tabs; unavailable storage does not
+prevent theme switching.
+
+All palettes and semantic colors live in [src/lib/themes.js](src/lib/themes.js).
+To add a theme, add a `createTheme` entry to `THEMES` with a unique ID, name,
+light/dark mode, and its background, card, surface, navbar, sidebar, hover, and
+primary colors. The shared factory supplies coordinated text, status, border,
+focus, overlay, and chart tokens. The selector and startup script automatically
+include new entries.
+
+Use semantic classes such as `bg-background`, `bg-card`, `text-foreground`,
+`text-muted-foreground`, `bg-primary`, `text-primary-foreground`, `text-link`,
+`border-input`, and `bg-overlay/60` instead of literal component colors. Always
+pair filled status backgrounds with their corresponding `*-foreground` token.
+The root shell applies the saved palette before first paint, including error
+and not-found screens. Theme transitions respect reduced-motion preferences.
+
+Run `npm run test:themes` to verify complete palettes, WCAG AA text contrast,
+focus/input contrast, dark-mode classes, OS resolution, and startup fallbacks.
+Run `npm run build` for the integrated application build. When adding a palette,
+also inspect navigation, dashboards, forms, menus, and modals on desktop and mobile.
